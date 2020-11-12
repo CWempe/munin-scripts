@@ -19,9 +19,9 @@
 #
 
 // Change the following path as appropriate
-require('/srv/http/munin/ros/routeros_api.class.php');
+require(dirname(__FILE__) . '/routeros_api.class.php');
 
-$API = new routeros_api();
+$API = new RouterosAPI();
 
 // debug
 $API->debug = false;
@@ -48,7 +48,7 @@ if ($API->connect($hostname, 'munin', 'munin')) {
    $API->write('=stats=');
 
    $READ = $API->read(false);
-   $interfaces = $API->parse_response($READ);
+   $interfaces = $API->parseResponse($READ);
   # print_r($interfaces);
    $API->disconnect();
 
@@ -94,14 +94,14 @@ if (empty($interfaces)) {
 // Finally, print it all out.
     foreach ($interfaces as $interface)
     {
-	if ($interface['name']==$ifname)
-	{
-	    //print_r($interface);
-	    $rxbytes = $interface['rx-byte'];
-	    $txbytes = $interface['tx-byte'];
-	    print ("in.value ") . $rxbytes . "\n";
-	    print ("out.value ") . $txbytes . "\n";
-	}
+    if ($interface['name']==$ifname)
+    {
+        //print_r($interface);
+        $rxbytes = $interface['rx-byte'];
+        $txbytes = $interface['tx-byte'];
+        print ("in.value ") . $rxbytes . "\n";
+        print ("out.value ") . $txbytes . "\n";
+    }
     }
 
 exit;

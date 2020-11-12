@@ -19,9 +19,9 @@
 #
 
 // Change the following path as appropriate
-require('/srv/http/munin/ros/routeros_api.class.php');
+require(dirname(__FILE__) . '/routeros_api.class.php');
 
-$API = new routeros_api();
+$API = new RouterosAPI();
 
 // debug
 $API->debug = false;
@@ -49,7 +49,7 @@ if ($API->connect($hostname, 'munin', 'munin')) {
    $API->write('=once=');
 
    $READ = $API->read(false);
-   $interfaces = $API->parse_response($READ);
+   $interfaces = $API->parseResponse($READ);
  //  print_r($interfaces);
    $API->disconnect();
 
